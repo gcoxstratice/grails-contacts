@@ -9,12 +9,12 @@ appender('STDOUT', ConsoleAppender) {
 	}
 }
 
-root INFO, ['STDOUT']
+root ERROR, ['STDOUT']
 
-logger 'grails.plugin.springsecurity', DEBUG
-logger 'org.springframework.security', DEBUG
+logger 'grails.plugin.springsecurity', ERROR
+logger 'org.springframework.security', ERROR
 
-logger 'org.hibernate.SQL', DEBUG
+logger 'org.hibernate.SQL', ERROR
 //logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE
 
 File targetDir = BuildSettings.TARGET_DIR

@@ -1,6 +1,6 @@
 package sample.contact.auth
 
-class User implements Serializable {
+class Person implements Serializable {
 
 	private static final long serialVersionUID = 1
 
@@ -13,7 +13,7 @@ class User implements Serializable {
 	boolean accountLocked
 	boolean passwordExpired
 
-	User(String username, String password) {
+	Person(String username, String password) {
 		this()
 		this.username = username
 		this.password = password
@@ -26,7 +26,7 @@ class User implements Serializable {
 
 	@Override
 	boolean equals(other) {
-		is(other) || (other instanceof User && other.username == username)
+		is(other) || (other instanceof Person && other.username == username)
 	}
 
 	@Override
@@ -35,7 +35,7 @@ class User implements Serializable {
 	}
 
 	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this)*.role
+		PersonRole.findAllByPerson(this)*.role
 	}
 
 	def beforeInsert() {

@@ -19,7 +19,7 @@ import grails.transaction.Transactional
 import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import groovy.util.logging.Slf4j
-import sample.contact.auth.User
+import sample.contact.auth.Person
 
 @GrailsCompileStatic
 @Slf4j
@@ -88,7 +88,7 @@ class ContactService implements InitializingBean {
 	@Transactional(readOnly = true)
 	List<String> getAllRecipients() {
 		log.debug 'Returning all recipients'
-		User.createCriteria().list {
+		Person.createCriteria().list {
 			projections {
 				property 'username'
 			}

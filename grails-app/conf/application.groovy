@@ -1,5 +1,5 @@
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'sample.contact.auth.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'sample.contact.auth.UserRole'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'sample.contact.auth.Person'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'sample.contact.auth.PersonRole'
 grails.plugin.springsecurity.authority.className = 'sample.contact.auth.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],

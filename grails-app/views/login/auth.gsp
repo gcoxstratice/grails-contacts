@@ -20,6 +20,11 @@
 	<p>username <b>jane</b>, password <b>wombat</b>
 	<p>
 
+	<%
+	    System.out.println "Blah"
+		System.out.println session
+	%>
+
 	<p>Locale is: ${request.locale}</p>
 	<%-- this form-login-page form is also used as the form-error-page to ask for a login again. --%>
 	<g:if test="${params.login_error}">

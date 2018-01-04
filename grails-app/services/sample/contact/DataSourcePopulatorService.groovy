@@ -1,10 +1,9 @@
 package sample.contact
 
-import static org.springframework.security.acls.domain.BasePermission.ADMINISTRATION
-import static org.springframework.security.acls.domain.BasePermission.DELETE
-import static org.springframework.security.acls.domain.BasePermission.READ
-import static org.springframework.security.acls.domain.BasePermission.WRITE
-
+import grails.compiler.GrailsCompileStatic
+import grails.plugin.springsecurity.acl.AclService
+import grails.plugin.springsecurity.acl.AclUtilService
+import grails.transaction.Transactional
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.acls.model.ObjectIdentityGenerator
@@ -12,14 +11,14 @@ import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.SecurityContextHolder as SCH
-
-import grails.compiler.GrailsCompileStatic
-import grails.plugin.springsecurity.acl.AclService
-import grails.plugin.springsecurity.acl.AclUtilService
-import grails.transaction.Transactional
+import sample.contact.auth.Person
+import sample.contact.auth.PersonRole
 import sample.contact.auth.Role
-import sample.contact.auth.User
-import sample.contact.auth.UserRole
+
+import static org.springframework.security.acls.domain.BasePermission.ADMINISTRATION
+import static org.springframework.security.acls.domain.BasePermission.DELETE
+import static org.springframework.security.acls.domain.BasePermission.READ
+import static org.springframework.security.acls.domain.BasePermission.WRITE
 
 @GrailsCompileStatic
 @Transactional
@@ -52,13 +51,13 @@ class DataSourcePopulatorService implements InitializingBean {
 		Role userRole = new Role('ROLE_USER').save()
 		Role supervisorRole = new Role('ROLE_SUPERVISOR').save()
 
-		createUser 'rod',    'koala',  true,  userRole, supervisorRole
-		createUser 'dianne', 'emu',    true,  userRole
-		createUser 'scott',  'wombat', true,  userRole
-		createUser 'peter',  'opal',   false, userRole
-		createUser 'bill',   'wombat', true,  userRole
-		createUser 'bob',    'wombat', true,  userRole
-		createUser 'jane',   'wombat', true,  userRole
+		createPerson 'rod',    'koala',  true,  userRole, supervisorRole
+		createPerson 'dianne', 'emu',    true,  userRole
+		createPerson 'scott',  'wombat', true,  userRole
+		createPerson 'peter',  'opal',   false, userRole
+		createPerson 'bill',   'wombat', true,  userRole
+		createPerson 'bob',    'wombat', true,  userRole
+		createPerson 'jane',   'wombat', true,  userRole
 
 		def contacts = [['John Smith',       'john@somewhere.com'],
 		                ['Michael Citizen',  'michael@xyz.com'],
@@ -133,10 +132,10 @@ class DataSourcePopulatorService implements InitializingBean {
 		SCH.clearContext()
 	}
 
-	private void createUser(String username, String password, boolean enabled, Role... roles) {
-		def user = new User(username: username, enabled: enabled, password: password).save()
+	private void createPerson(String username, String password, boolean enabled, Role... roles) {
+		def user = new Person(username: username, enabled: enabled, password: password).save()
 		for (role in roles) {
-			UserRole.create user, role
+			PersonRole.create user, role
 		}
 	}
 

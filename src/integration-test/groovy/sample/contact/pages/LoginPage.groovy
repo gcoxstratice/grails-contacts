@@ -26,8 +26,8 @@ class LoginPage extends Page {
 	static url = 'login'
 	static at = { assert driver.title == 'Login'; true}
 	static content = {
-		login(required: false) { user = 'rod', password = 'koala' ->
-			loginForm.j_username = user
+		login(required: false) { person = 'rod', password = 'koala' ->
+			loginForm.j_username = person
 			loginForm.j_password = password
 			submit.click()
 		}
